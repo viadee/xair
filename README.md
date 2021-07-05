@@ -1,14 +1,6 @@
 # eXplainable AI Recommender (XAIR)
 ... Should it be Anchors or SHAP? Or something else?
 
-# Table of contents
-1. [Why should I use this XAIR?](#why)
-2. [Summary of benefits using the XAIR](#benefits)
-3. [Installation guide](#installation)
-4. [How can I participate in the development?](#participate)
-5. [When is a XAI method "suitable"?](#method-suitability)
-6. [How is the recommendation made?](#how-recommendation)
-7. [TODOs](#todo)
 
 <a name="why"></a>
 ## Why should I use this XAIR?
@@ -37,6 +29,17 @@ Furthermore, it can be used as a standalone web application or automatically, e.
 * Get a suggested implementation with some hints for it’s application
 * Inform yourself about all available XAI methods
 * Learn German (sorry, information pages are currently not available in English)
+
+
+# Table of contents
+1. [Why should I use this XAIR?](#why)
+2. [Summary of benefits using the XAIR](#benefits)
+3. [Installation guide](#installation)
+4. [How can I participate in the development?](#participate)
+5. [When is a XAI method "suitable"?](#method-suitability)
+6. [How is the recommendation made?](#how-recommendation)
+7. [TODOs](#todo)
+
 
 <a name="installation"></a>
 # Installation guide
