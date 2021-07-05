@@ -1,0 +1,57 @@
+{
+  "id": "ale",
+  "name": "Accumulated Local Effects",
+  "abbr": "ALE",
+  "classification": [
+    "scopeGlobal",
+    "featureRelevance",
+    "perturbation",
+    "visual"
+  ],
+  "question": "Was sagt das Modell vorher, wenn man das Feature innerhalb eines kleinen Intervalls um seinen Wert ändert?",
+  "questionExample": "Welchen durchschnittlichen Einfluss hat das Alter auf die Bewilligung eines Kredits durch die Bank?",
+  "noQuestion": "2D ALE Plots (Plots für zwei Featues) zeigen ausschließlich den Effekt zweiter Ordnung, d.h. die zusätzliche Auswirkung der Interaktion der beiden Features auf die Vorhersage an, nicht den Gesamteffekt. Wenn zwei Features nicht interagieren, aber beide einen linearen Effekt auf die Vorhersage haben, ist die 1D ALE Kurve beider eine Gerade an, die 2D ALE Kurve ist nahe 0, da es durch Featureunabhängigkeit keinen zusätzlichen Interaktionseffekt gibt. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+  "function": "Für die Berechnung des Einflusses des Features wird dessen Wertebereich zuerst in lokale Bereiche unterteilt. Für jeden Bereich wird der Feature-Wert zwischen den Rändern bewegt und der durchschnittliche Unterschied der Vorhersage berechnet: „Was sagt das Modell vorher, wenn man das Fea-ture innerhalb eines kleinen Intervalls um seinen Wert ändert?“ <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>. Eine Lokalisierung der Feature-Werte mithilfe dieser Bereiche vermeidet eine Extrapolation und somit die Erstellung unrealistischer Dateninstanzen aufgrund von Korrelation der Eingabe-Features <a href='https://arxiv.org/pdf/1309.6392.pdf'>[2]</a>.  Die Summe dieser arithmetischen Mittel wird zentriert dargestellt (Mittelwert = 0). <br/> Die Berechnung des Einflusses zweier Features ist auch möglich. Der Graph zeigt aber im Gegensatz zu PDP Plots ausschließlich den Effekt zweiter Ordnung, d.h. die zusätzliche Auswirkung der Interaktion der beiden Features auf die Vorhersage, an. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+  "result": "Die Visualisierung zeigt somit die (globale) Auswirkung des Feature-Werts auf die Vorhersage im Vergleich zu der durchschnittlichen Vorhersage. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+  "resultImg": "/images/ale/pyale.png",
+  "references": {
+    "1": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>",
+    "2": "<a href='https://arxiv.org/pdf/1309.6392.pdf'>Goldstein, A., Kapelner, A., Bleich, J. & Pitkin, E. (2014), ‘Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation’.</a>"
+  },
+  "implementation": {
+    "name": "PyALE",
+    "recommendation": "Die Auswahl guter Python-Implementierungen für ALE ist klein, die Unterstützung durch eine große Community selten gegeben und die Dokumentation oft unzureichend. Trotz einer kleinen Community auf GitHub fällt auf die Entscheidung auf <i>PyALE</i>, da sie als einzige die Visualisierung kategorischer Features unterstützt. ",
+    "doc_link": "https://pypi.org/project/PyALE/",
+    "code_link": "https://github.com/NBCLab/pyale",
+    "result": "<ul><li>1D ALE Plots für jeweils ein numerisches oder kategorielles Feature, inklusive optionaler Darstellung eines Konfidenzintervalls</li><li>2D ALE Plots für numerische Features</li></ul>",
+    "hintsUsage": [
+      "Für die Definition der Bereiche werden die Quantile der Feature Verteilung verwendet. Durch die Verwendung der Quantile wird sichergestellt, dass sich in jedem der Bereiche gleich viele Dateninstanzen befinden. Quantile können allerdings sehr unterschiedlich große Bereiche haben, was bei einem sehr ungleich verteilten Feature zu seltsamen ALE-Diagrammen führen kann. Daher sollten Outliers, einzelne Dateninstanzen mit unüblichen, extrem hohen oder niedrigen Featurewerten, aus den Trainingsdaten entfernt werden.",
+      "ALE Plots brauchen eine natürliche Ordnung der Featurewerte. Sollten kategorielle Features keine Ordnung aufweisen, werden die Kategorien nach ihrer Ähnlichkeit auf Basis der anderen Features geordnet. Die Distanz zweier Kategorien ist die Summe der Distanzen aller anderen Features (<a href='https://en.wikipedia.org/wiki/Empirical_distribution_function'>empiricial cumulative distribution function</a>).  <a href='https://github.com/DanaJomar/PyALE/blob/4bd1a0e26cc754b49d2a87feacf23ba103e7c453/PyALE/_src/lib.py'>[1]</a>",
+      "2D ALE Plots können das Fehlverhalten des Modells durch Eingabe sehr unwahrscheinlicher bzw. unmöglicher Dateninstanzen aufgrund der Extrapolation (dem Verlassen des 'normalen' Wertebereiches eines Features) sichtbar machen. Es ist eine Designentscheidung, ob dieser Bereich unwahrscheinlicher Dateninstanzen einbezogen werden sollte oder nicht. Das kann abhängig von der Tatsache sein, ob die Verteilung der Testdaten oder neuer, während dem Einsatz des Modells erhaltener Daten, anders erwartet wird. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a>",
+      "2D ALE Plots eignen sich, wenn Interesse an der Feature Interaktion besteht. Wenn Interesse am kombinierten Effekt der Merkmale, d.h. am Gesamteffekt und den Interaktionseffekten besteht, dann sollten PDPs bevorzugt werden. ",
+      "Für diesen XAI Methoden Vorschlag wurde hauptsächlich die Korrelationen der angegebenen Features of Interest betrachtet. Sollten andere, nicht korrelierende Features ebenfalls visualisiert werden  und die Berechnungszeit irrelevant sein, sind PDP Plots mit zusätzlichen ICE Kurven durch ihre einfache Verständlichkeit zu bevorzugen.",
+    "Viele Beispiele für die Anwendung von PyALE sind <a href='https://htmlpreview.github.io/?https://github.com/DanaJomar/PyALE/blob/master/examples/Examples.html'>hier</a> zu finden"
+    ],
+    "hintsImpl": {
+      "grid_size": "Definiert die Anzahl der lokalen Bereiche: Eine zu hohe Anzahl kann zu einer wackeligen Kurve mit vielen kleinen Auf- und Abschwüngen führen. Wenige glätten das Diagramm, machen es somit aber auch ungenau und eventuell bleibt die tatsächliche Komplexität des Modells verborgen.",
+      "include_CI und C": "Die Methode erlaubt eine Darstellung eines Konfidenzintervalls mithilfe von Zufallsstichproben des Datensatzes um den geschätzten Feature Effekt."
+    },
+    "references": {
+      "1": "<a href='https://github.com/DanaJomar/PyALE/blob/4bd1a0e26cc754b49d2a87feacf23ba103e7c453/PyALE/_src/lib.py'>Jomar, Dana (2020): PyALE</a>",
+       "2":  "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>"
+      },
+    "prereqs": {
+      "model": true,
+      "data": {
+        "info": null,
+        "categorical": "Kodiert wenn Label Encoded, nicht kodiert (original Feature-Werte) bei angewendetem One-Hot-Encoding (OHE)",
+        "numerical": "Nicht skaliert",
+        "colNames": "Benötigt"
+      },
+      "trueLabel": false,
+      "additional": [
+        "Bei One-Hot-Encoding (OHE) wird die Kodierungsfunktion benötigt."
+      ]
+    }
+  }
+}

@@ -1,0 +1,608 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ratings": {
+      "type": "array",
+      "schema": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    },
+    "alternatives": {
+      "type": "dict",
+      "properties": {
+        "type": "dict",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "visualization": {
+            "type": "integer"
+          },
+          "global": {
+            "type": "integer"
+          },
+          "local": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": {
+          "type": [
+            "string",
+            "integer",
+            "number",
+            "boolean",
+            "dict",
+            "null"
+          ]
+        }
+      }
+    },
+    "resource_files": {
+      "type": "dict",
+      "properties": {
+        "rating_bool": {
+          "type": "string"
+        },
+        "rating_fuzzy": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "string"
+        },
+        "custom_rules": {
+          "type": "string"
+        },
+        "antecedents_config": {
+          "type": "string"
+        },
+        "frontend_input_config": {
+          "type": "string"
+        },
+        "antecedents": {
+          "type": "string"
+        },
+        "consequents": {
+          "type": "string"
+        },
+        "log_file": {
+          "type": "string"
+        },
+        "cur_rules_file": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rating_bool",
+        "rating_fuzzy",
+        "rules",
+        "custom_rules",
+        "antecedents_config",
+        "frontend_input_config",
+        "antecedents",
+        "consequents",
+        "log_file",
+        "cur_rules_file"
+      ]
+    },
+    "criteria": {
+      "type": "dict",
+      "properties": {
+        "weight_m_rating": {
+          "type": "string"
+        },
+        "weight_reduced_general": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "weight_m_rating",
+        "weight_reduced_general"
+      ]
+    },
+    "fuzzy": {
+      "type": "dict",
+      "properties": {
+        "defuzzify_method": {
+          "type": "string"
+        },
+        "universes": {
+          "type": "dict",
+          "properties": {
+            "u_10": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "u_10_neg": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "u_bool": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": "integer"
+          },
+          "required": [
+            "u_10",
+            "u_10_neg",
+            "u_bool"
+          ]
+        },
+        "mem_funcs": {
+          "type": "dict",
+          "properties": {
+            "bool": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                }
+              ]
+            },
+            "trap": {
+              "type": "dict",
+              "properties": {
+                "u10_5": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "array",
+                    "items": "integer"
+                  }
+                ]
+              },
+              "required": [
+                "u10_5"
+              ]
+            },
+            "tri": {
+              "type": "dict",
+              "properties": {
+                "u10_3": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "u10_5": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "u100_3": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "array",
+                    "items": "integer"
+                  }
+                ]
+              },
+              "required": [
+                "u10_3",
+                "u10_5",
+                "u100_3"
+              ]
+            }
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": [
+              {
+                "type": "array",
+                "items": "integer"
+              }
+            ]
+          },
+          "required": [
+            "bool",
+            "trap",
+            "tri"
+          ]
+        }
+      },
+      "required": [
+        "defuzzify_method",
+        "universes",
+        "mem_funcs"
+      ]
+    }
+  },
+  "required": [
+    "ratings",
+    "alternatives",
+    "resource_files",
+    "criteria",
+    "input_dtypes",
+    "fuzzy"
+  ]
+}

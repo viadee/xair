@@ -1,0 +1,54 @@
+{
+  "id": "shap",
+  "name": "SHapley Additive exPlanations",
+  "abbr": "SHAP",
+  "classification": [
+    "scopeBoth",
+    "featureRelevance",
+    "perturbation"
+  ],
+  "question": "Wie hoch ist der Beitrag jedes Merkmals (oder einer Gruppe von Merkmalen) zur Vorhersage einer Dateninstanz, verglichen mit der durchschnittlichen Vorhersage für alle Instanzen?",
+  "questionExample": "Inwieweit wurde meine Vorhersage für die Kredithöhe durch die Tatsache beeinflusst, dass ich vier Bankkonten habe, statt nur der durchschnittlichen Anzahl von zwei Konten?",
+  "noQuestion": "<ul><li>Die resultierenden SHAP-Werte geben Auskunft über vom ML Modell gelernten Korrelationen der Features, allerdings nicht zwangsläufig über die Kausalität.  Es könnte immer unbeobachtete Ursachen geben, die für die assoziierten Variablen verantwortlich sind. Mithilfe der Interpretation der Methodenergebnisse können Hypothesen generiert werden, anhand derer die Kausalität durch Experimente oder ähnliche Ansätze ermittelt werden kann. [1]</li><li>Die Methode erklärt die Wichtigkeit der Features für die Modellvorhersage, nicht unbedingt die der Systementscheidung. Manche Features werden beispielsweise nur durch die Ausprägung anderer, korrelierender Features aktiviert: Diese Features erhöhen dann zwar den vorhergesagten Wert, aber beeinflussen nicht unbedingt die Entscheidung.</li></ul>",
+  "function": "SHapley Additive exPlanations (SHAP) ist ein spieletheoretischen Ansatz der Shapley Werte mit lokalen, linearen Regressionsmodellen verbindet [3].    Shapley Werte basieren auf der Idee, dass das Vorhersageergebnis fair unter allen Features aufgeteilt wird und dass für die Bestimmung der Wichtigkeit eines einzelnen Features, alle möglichen Feature-Kombination berücksichtigt werden sollten. [2]<br/>   Für die Berechnung der Feature-Wichtigkeit werden zunächst die Vorhersagen aller möglichen Feature-Kombinationen einer Dateninstanz berechnet. Fehlt in einer solchen Kombination ein Feature, wird sein Wert durch den einer anderen Dateninstanz ersetzt (permutiert).    Anschließend werden die Differenzen der Werte mit und ohne den zu betrachtenden Feature-Wert gewichtet aggregiert, um den marginalen Beitrag des Features für das Ergebnis zu erhalten. [3] Kleine Kombinationen mit wenig nicht permutierten Features, und große mit vielen erhalten dabei höhere Gewichte, da sie mehr zu den Haupteffekten sowie den Gesamteffekten der Features aussagen als Mittelgroße. Die Ermittlung dieser additiven Feature Wichtigkeiten geschieht mit einem linearen Modell, dessen Koeffizienten den Shapley Werten entsprechen. [2]",
+  "result": "<ul><li>Feature Wichtigkeiten spezifischer Dateninstanzen</li><li>Feature Wichtigkeiten aller Dateninstanzen</li><li>Abhängigkeitsstreudiagramm zur Darstellung der Wirkung eines einzelnen Merkmals über den gesamten Datensatz</li><li>Zusammenfassung der Effekte aller Features</li><li>Interaktion zweier Eingabe-Features</li></ul>",
+  "resultImg": "/images/shap/shap1.png",
+  "references": {
+    "1": "<a href='https://arxiv.org/abs/1606.03490'>Lipton, Zachary C (2018): The Mythos of Model Interpretability. In: Queue (16)</a>",
+    "2": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>",
+    "3": "<a href='http://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf'>Lundberg, Scott M.; Lee, Su-In (2017): A Unified Approach to Interpreting Model Predictions. In: Advances in Neural Information Processing Systems 30, S. 4765–4774</a>"
+  },
+  "implementation": {
+    "name": "KernelSHAP von Alibi",
+    "recommendation": "Es wird die SHAP Implementierung von Alibi empfohlen. Sie ermöglicht ein explizites Gruppieren kategorischer Variablen, wodurch sichergestellt wird, dass ein Feature trotz Feature-Kodierungen weiterhin als eine Dimension betrachtet wird. Dies reduziert zudem die Berechnungszeit, da für ein Feature mit m Kategorien nur ein statt m SHAP Wert berechnet werden muss.<br/>Die Implementierung überzeugt durch grafisch ansprechende Darstellungen, wobei durch Aggregation einzelner Instanzvorhersagen ist auch der Erhalt globaler Visualisierungen möglich ist.<br/>Handelt es sich bei dem Modell um ein Tree Ensemble (XGBoost/LightGBM/CatBoost/scikit-learn/pyspark Modelle) oder ein Deep Neural Network (Tensorflow/Keras), ist evtl. eine Verwendung der SHAP Implementierung von [3] empfehlenswert. Sie ist <a href='https://github.com/slundberg/shap'>[hier]</a> zu finden.",
+    "doc_link": "https://docs.seldon.io/projects/alibi/en/stable/methods/KernelSHAP.html",
+    "code_link": "https://github.com/SeldonIO/alibi",
+    "result": "<ul><li>Feature Wichtigkeiten spezifischer Dateninstanzen</li>    <li>Feature Wichtigkeiten aller Dateninstanzen</li> <li>Abhängigkeitsstreudiagramm zur Darstellung der Wirkung eines einzelnen Merkmals über den gesamten Datensatz</li><li>Zusammenfassung der Effekte aller Features</li>   <li>Interaktion zweier Eingabe-Features</li></ul>",
+    "hintsUsage": [
+      "Auswahl des Explainers: KernelSHAP ist modellagnostisch und kann für jedes ML Modell angewendet werden. Für Trees ist die Anwendung des modellspezifischen TreeSHAP durch verbesserte Performance empfehlenswert. Die Anwendung dieses ist, sofern keine Strings als Kategorien verwendet werden, für Folgende Modelltypen möglich: sklearn, xgboost, catboost or lightgbm"
+    ],
+    "hintsImpl": {
+      "background_data":"Der Informationsgehalt der Features wird anhand dieser Background-Daten bestimmt.  In der Regel sind es alle verwendeten Trainingsdaten.  Um eine maßgeschneiderte Erklärung abhängig von der Frage zu erhalten, kann man statt aller Daten, z.B. der Daten 'aller Bewerber' auch nur die Daten aller „akzeptierten Bewerber“ geben <a href='https://github.com/slundberg/shap/issues/435#issuecomment-462104334'>[Weitere Informationen]</a>. Für den Erhalt einer sinnvollen Erklärung, aber auch für die Berechnungsdauer ist die Anzahl dieser  Background-Daten entscheidend. Um die Berechnungsdauer zu reduzieren kann man Folgendes tun [4]: <ul> <li>Veränderung der Parameter <i>summarise_background</i> und <i>n_background_samples</i> zum Zusammenfassen der Daten zu der angegebenen Anzahl an Instanzen</li> <li>Um den Informationsgehalt der Daten durch das Zusammenfassen nicht zu verlieren, kann alternativ die <a href='https://github.com/slundberg/shap/blob/491d46a540d16fb5a9868de6be2913599c850167/shap/utils/_legacy.py'>shap.kmeans</a> Funktion verwendet werden, welche das k-means Clustering verwendet und sicherstellt, dass die zurückgegebenen Werte denen der Trainingsdaten (gewichtet nach Anzahl der Datenpunkte in den Clustern) entsprechen.</li> <li>Implementierungsunabhängig kann man kann nur eine Teilmenge der Trainingsdaten verwenden und ihre Anzahl iterativ erhöhen, bis die Änderungen der SHAP Werte marginal ist, beispielsweise die eines der wichtigsten Features kleiner als 10%.</li> </ul>", 
+      "n_background_samples":"Veränderung der Anzahl der für die Backround-Daten (siehe <i>background_data</i>)",
+      "summarise_background":"Boolean für das Zusammenfassen der Backround-Daten (siehe <i>background_data</i>)"
+    },
+    "references": {
+      "1": "<a href='https://arxiv.org/abs/1606.03490'>Lipton, Zachary C (2018): The Mythos of Model Interpretability. In: Queue (16)</a>",
+      "2": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>",
+      "3": "<a href='http://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf'>Lundberg, Scott M.; Lee, Su-In (2017): A Unified Approach to Interpreting Model Predictions. In: Advances in Neural Information Processing Systems 30, S. 4765–4774</a>",
+      "4": "<a href='https://github.com/SeldonIO/alibi/blob/master/examples/kernel_shap_wine_intro.ipynb'>SeldonIO (2021): Kernel SHAP explanation for SVM models</a>"
+    },
+    "prereqs": {
+      "model": false,
+      "data": {
+        "info": "Format modellabhängig: Das, welches in Vorhersagefunktion gegeben wird",
+        "categorical": "Kodiert",
+        "numerical": "Skaliert",
+        "colNames": "Benötigt, wenn One-Hot-Encoding verwendet"
+      },
+      "trueLabel": false,
+      "additional": [
+      ]
+    }
+  }
+}

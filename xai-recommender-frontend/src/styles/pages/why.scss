@@ -1,0 +1,138 @@
+@import "./../variables";
+
+#why {
+  .keyvisual {
+    //min-height: 60vh;
+    .critList {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .inputWarning {
+      div {
+        background: $primary-red;
+        color: white;
+        padding: 0.5rem;
+      }
+      div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    .inputFuzzy {
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      > div:last-child {
+        padding-right: 40%;
+      }
+    }
+
+    .inputLabel {
+      font-weight: 600;
+    }
+  }
+  .check {
+    color: $primary-green;
+    font-size: 1.25rem;
+    padding-right: 1rem;
+  }
+  .checkNot {
+    @extend .check;
+    color: $primary-red;
+  }
+
+  #excluded {
+    ul {
+      padding-inline-start: 0;
+      li {
+        display: flex;
+        flex-wrap: wrap;
+        > div:first-child {
+          font-weight: bold;
+          min-width: 30%;
+        }
+        .reasonBox {
+          width: 70%;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  .rulesTable {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: none;
+    // border: 1px solid #ddd;
+    table-layout: fixed;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+
+    th {
+      color: $text-gray;
+      width: auto;
+      text-align: center;
+      .rec {
+        color: $primary-green;
+        //width: 25%;
+      }
+    }
+    th:first-child,
+    td:first-child {
+      width: 30%;
+      .param {
+        text-align: left;
+        color: black;
+      }
+    }
+
+    th,
+    td {
+      text-align: center;
+      padding: 0.5rem;
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        padding-right: 1rem;
+        flex-wrap: wrap;
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .light {
+      font-weight: 400;
+    }
+
+    .rating.VL {
+      color: $rating-vl;
+    }
+    .rating.L {
+      color: $rating-l;
+    }
+    .rating.M {
+      color: $rating-m;
+    }
+    .rating.H {
+      color: $rating-h;
+    }
+    .rating.VH {
+      color: $rating-vh;
+    }
+  }
+}

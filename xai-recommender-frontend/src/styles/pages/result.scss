@@ -1,0 +1,66 @@
+@import "./../variables";
+
+#result {
+  .keyvisual {
+    min-height: 50vh;
+    height: 20%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    .align-items-center {
+      height: 90%;
+      > .col {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .methodContainer {
+    h1 {
+      font-size: 5rem;
+      color: white;
+    }
+  }
+  .methodBarContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    //width: 50%;
+    border-bottom: 3px solid white;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+
+    .methodBar {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      flex-grow: 1;
+      flex-basis: 200px;
+      height: 30vh;
+      width: 80px;
+      max-width: 120px;
+
+      .rating {
+        background: white;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+
+      .name {
+        font-size: 1rem;
+        text-align: center;
+        color: white;
+        font-weight: 400;
+      }
+    }
+
+    .line5 {
+      width: 100%;
+      border: 3px solid $primary-green;
+      z-index: 100;
+    }
+  }
+}

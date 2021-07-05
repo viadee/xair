@@ -1,0 +1,64 @@
+{
+  "id": "cfproto",
+  "name": "Counterfactuals guided by Prototypes",
+  "abbr": "CFProto",
+  "classification": [
+    "scopeLocal",
+    "cf",
+    "perturbation"
+  ],
+  "question": "Welcher Feature-Wert muss (minimal) geändert werden, sodass sich die Vorhersage zu einer Vorgegebenen ändert?",
+  "questionExample": "Was muss ich ändern, damit die Bank meinen Kredit bewilligt?",
+  "noQuestion":"Für jede zu erklärende Instanz werden normalerweise viele mögliche CF gefunden (Rashomon Effekt). Es gibt keine 'einzig richtige' oder 'optimale' kontrafaktische Instanz. Man sollte daher entweder alle kontrafaktischen Erklärungen liefern oder Kriterien zur Auswahl der Besten definieren. <a href='https://arxiv.org/pdf/1706.07269v3'>[1]</a>",
+  "function": "Counterfactual Explanations, kontrafaktische Erklärungen, liefern permutationsbasiert lokale Erklärungen für Klassifikationsaufgaben. Durch ihre kontrastive Art sind sie leicht verständlich und von Menschen bevorzugt, da diese beispielsweise nicht fragen, warum Ereignis A nicht passiert ist, sondern warum Ereignis B stattdessen auftrat. <a href='https://arxiv.org/pdf/1706.07269v3'>[1]</a><br/>Eine kontrafaktische Instanz (CF) ist eine minimal veränderte Dateninstanz, deren Vorhersage auf einen vordefinierten Wert geändert wurde. Sie kann neu generiert werden und muss nicht zwingend im Datensatz vorhanden sein. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a<br/><br/>Eine gute CF Instanz zeichnet sich dadurch aus, dass</br/> <ul><li> ihre Vorhersage so nah wie möglich an der vordefinierten Vorhersage ist</li><li> ihre Veränderungen im Vergleich zur Originalinstanz so gering wie möglich ist </li><li> sie gut interpretierbar ist, indem sie ähnlich der Trainingsdatenverteilung, besonders der Verteilung der kontrafaktischen Klasse, ist.</li></ul>Die Suche nach solchen Instanzen ist eine Optimierungsaufgabe, mit zusammengesetzten, zu minimierenden Fehlerfunktionen, welche die oben genannten Ziele adressieren. <a href='https://arxiv.org/pdf/1907.02584v2'>[3]</a> Zur Reduzierung des Zeitaufwands und zur Gewährleistung der Interpretierbarkeit reduziert die Methode CFProto die Unterschiedlichkeit des CF zu dem jeweiligen Prototype der vorgegebenen Klasse. Als Prototype wird eine für eine Klasse repräsentative Dateninstanz bezeichnet. Außerdem wird die natürliche Ordnung kategorischer, ordinaler Features (vorhanden beispielsweise in den Jahreszeiten, Schulabschlüssen) bei der Pertubation zu berücksichtigen, was ebenfalls die Realitätsnähe fördert. <a href='https://arxiv.org/pdf/1907.02584v2'>[3]</a>",
+  "result": "Das Ergebnis ist eine kontrafaktische Instanz, die einer anderen Klasse zugeordnet wurde. Diese kann Aufschluss darüber geben, welche minimalen Änderungen zu einer anderen Klassifikation führen können.",
+  "resultImg": "/images/cfproto/cfproto_adults.png",
+  "references": {
+    "1": "<a href='https://arxiv.org/pdf/1706.07269v3'>Miller, Tim (2017): Explanation in Artificial Intelligence: Insights from the Social Sciences</a>",
+    "2": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>",
+    "3": "<a href='https://arxiv.org/pdf/1907.02584v2'>van Looveren, Arnaud; Klaise, Janis (2019): Interpretable Counterfactual Explanations Guided by Prototypes</a>"
+  },
+  "implementation": {
+    "name": "CFProto von Alibi",
+    "recommendation": "Es wird die CFProto Implementierung von Alibi empfohlen. Sie ermöglicht ein explizites Gruppieren kategorischer Variablen, wodurch sichergestellt wird, dass ein Feature trotz Feature-Kodierungen weiterhin als eine Dimension betrachtet wird. Dies reduziert zudem die Berechnungszeit, da für ein Feature mit m Kategorien nur ein statt m SHAP Wert berechnet werden muss.<br/>Die Implementierung überzeugt durch grafisch ansprechende Darstellungen, wobei durch Aggregation einzelner Instanzvorhersagen ist auch der Erhalt globaler Visualisierungen möglich ist.<br/>Handelt es sich bei dem Modell um ein Tree Ensemble (XGBoost/LightGBM/CatBoost/scikit-learn/pyspark Modelle) oder ein Deep Neural Network (Tensorflow/Keras), ist evtl. eine Verwendung der SHAP Implementierung von <a href='https://arxiv.org/pdf/1907.02584v2'>[3]</a> empfehlenswert. Sie ist <a href='https://github.com/slundberg/shap'>[hier]</a> zu finden.",
+    "doc_link": "https://docs.seldon.io/projects/alibi/en/stable/methods/CFProto.html",
+    "code_link": "https://github.com/SeldonIO/alibi",
+    "result": "<ul>   <li>Kontrafaktische Instanz (CF)</li>    <li>Neue Klasse des CF mit Klassenwahrscheinlichkeiten</li> </ul>",
+        "hintsUsage": [
+     "Die Interpretation der kontrafaktischen Erklärungen ist sehr eindeutig. Wenn die Feature-Werte einer Dateninstanz gemäß der kontrafaktischen Erklärung geändert werden, ändert sich die Vorhersage in die vordefinierte Vorhersage. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+    "Allgemein sollte bei CF darauf geachtet werden, dass bei Erklärungen für den Endnutzer nur Merkmale verändert werden, die er aktiv beeinflussen kann und so verändert werden können. Es nützt ihm nichts zu wissen, dass der Kredit bewilligt worden wäre, wenn er 5 Jahre jünger wäre.",
+    "Für jede zu erklärende Instanz werden normalerweise viele mögliche CF gefunden (Rashomon Effekt). Man sollte daher entweder alle kontrafaktischen Erklärungen liefern oder Kriterien zur Auswahl der Besten definieren. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+    "Abhängig von den Daten kann manchmal kein kein CF gefunden werden.",
+  "Die Prototypes zur CF-Berechnung werden entweder mithilfe eines selbsttrainierten <a href='https://en.wikipedia.org/wiki/Autoencoder'>Autoencoders</a> oder mittels <a href='https://en.wikipedia.org/wiki/K-d_tree'>k-d-tree</a> ermittelt. Mit ihrem Loss-Term werden außerhalb der Trainingsdatenverteilung liegende CFs bestraft und die CF-Suche in Richtung der nächstgelegenen Prototypenklasse geführt. Ein Beispiel für die Anwendung eines Autoencoders von CFProto auf dem MNIST-Trainingsdatensatz ist <a href='https://docs.seldon.io/projects/alibi/en/stable/examples/cfproto_mnist.html'>[hier]</a> zu finden.",
+"Für die Berechnung eines CF wird das ML Modell bzw. seine Vorhersagefunktion sehr häufig aufgerufen. Bei langen Zugriffszeiten ist die Performance der Methode daher eher schlecht."  
+],
+    "hintsImpl": {
+     "feature_range (CFProto)":"Angabe der Feature-Wertebereiche (Min- und Max-Wert),  mit denen eine Extrapolation der Features und eine Generierung unrealistischer Dateninstanzen vermieden wird. Die Angabe erfolgt entweder als Tupel, angewendet für alle Features, oder als Liste mit featurespezifischen Tupeln.",
+    "ohe (CFProto)": "Ob die kategorialen Variablen einhändig kodiert (OHE) sind oder nicht. Wenn sie nicht OHE sind, wird angenommen, dass sie ordinale Kodierungen haben.",
+      "cat_vars (CFProto)": "Neben Setzen des Parameters <i>ohe</i> ist bei One-hot kodierten Features ist die Erstellung eines Dictionaries (mit Helferfunktion) notwendig, das als Schlüssel den kategorialen Spaltennamen und als Werte die Anzahl der Kategorien dieser enthält. Dafür stellt Alibi in <i>alibi.utils.mapping</i> eine Helferfunktion <i>ord_to_ohe</i> (und die inverse Funktion <i>ohe_to_ord</i> bereit. Ein Beispiel mit OHE Features ist <a href='https://docs.seldon.io/projects/alibi/en/stable/examples/cfproto_cat_adult_ohe.html'>[hier]</a>",
+    "ae_model und enc_model (CFProto)": "Autoencoder/Encoder, der für die Prototypgenerierung verwendet wurde",
+    "use_kdtree (CFProto)": "Angabe, ob k-d-Trees für den Prototyp-Loss verwendet werden sollen, wenn kein Encoder verfügbar ist",
+   "c_init und c_steps (CFProto)": "Es muss ein geeigneter Bereich für den Skalierungsparameter <i>c</i> gefunden werden, der durch diese beiden Parameter (Initialer <i>c</i> Wert, Anzahl an Iterationen zur Anpassung von <i>c</i>) beeinflusst wird. Dieser skaliert die Maximierung der Unterschiedlichkeit zur originalen Vorhersage.Wenn er zu klein ist, werden die Perturbationen durch die L1 Regularisierung  nicht beachtet; ist er zu groß, ist das CF nicht mehr sparse, d.h. seine Veränderungen sind nicht mehr so gering wie möglich.  <a href='https://arxiv.org/pdf/1907.02584v2'>[2]</a> Die Auswahl dieser Parameter kann Zeit in Anspruch nehmen.",
+   "d_type (fit())": "Sollte der Datensatz ordinale Features beinhalten, ist das standardmäßig aktivierte Distanzmessverfahren <i>Association Based Distance Metric (ABDM)</i> emfpehlenswert, da dadurch die natürliche Ordnung der Kategorien nicht verloren geht. Dabei spielt die Diskretisierbarkeit der Features allerdings eine Rolle. <br/>Eine Alternative, die bei schlechter Diskretisierbarkeit verwendet werden kann aber die Feature-Kategorien als unabhängig betrachtet, ist die <i>Modified Value Distance Metric (MVDM)</i>. <i>ABDM-MVDM</i> ist eine gewichtete Kombination dieser Metriken.",
+   "treshold (explain())": "Schwellwert (Verhältnis: Abstands des CF zum originalen Prototyp zum Abstand des CF zum CF-Prototyp), über dem das zurückgegebene CF liegen soll."
+  },
+    "references": {
+      "1": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>",
+    "2": "<a href='https://arxiv.org/pdf/1907.02584v2'>van Looveren, Arnaud; Klaise, Janis (2019): Interpretable Counterfactual Explanations Guided by Prototypes</a>"
+    },
+    "prereqs": {
+      "model": false,
+      "data": {
+        "info": "Format modellabhängig: Das, welches in Vorhersagefunktion gegeben wird",
+        "categorical": "Kodiert",
+        "numerical": "Skaliert",
+        "colNames": "Benötigt"
+      },
+      "trueLabel": false,
+      "additional": [
+        "Eingabe des Formates der Dateninstanz und der Wertebereich jedes Features nötig. Durch die Range-Angabe kann die Generierung unrealistischer Dateninstanzen vermieden werden.",
+        "Wenn One-hot kodierte Features vorhanden sind, ist die Erstellung eines Dictionaries (mittels einer Helferfunktion) notwendig, das als Schlüssel den kategorialen Spaltennamen und als Werte die Anzahl der Kategorien dieser enthält."
+      ]
+    }
+  }
+}

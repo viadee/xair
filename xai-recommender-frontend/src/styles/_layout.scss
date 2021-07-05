@@ -1,0 +1,253 @@
+.content {
+  margin-top: 11rem;
+  //padding-bottom: 6rem;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  //to position footer
+  min-height: calc(100vh - 125px);
+
+  > .container-fluid {
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  .noResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-flow: column;
+    text-align: center;
+  }
+
+  .page {
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .tooltipText {
+    @extend .text;
+    font-size: 0.8rem;
+  }
+
+  .methodDetailedBoxes .methodBlock {
+    display: flex;
+    flex-wrap: wrap;
+
+    .text {
+      color: $text-gray;
+    }
+  }
+
+  .methodBoxes {
+    display: flex;
+    flex-wrap: wrap;
+
+    .methodBlock {
+      flex: 1 0 29%; /* explanation below */
+      margin: 5px;
+
+      .btn {
+        min-height: 100px;
+        background: $primary-yellow;
+        width: 100%;
+        font-size: 0.9rem;
+      }
+      .btn.suggested {
+        background: $primary-green;
+        color: white;
+      }
+    }
+  }
+  .methodBlock.small {
+    .classificationTags {
+      flex-direction: column;
+      .col {
+        margin-bottom: 0.5rem;
+
+        button {
+          padding: 0.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .page.full {
+    height: calc(100vh - 490px);
+  }
+
+  a {
+    @extend .text-accent;
+    color: $primary-green;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: $primary-yellow;
+      text-decoration: none;
+    }
+  }
+
+  .linkBox {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      @extend .more;
+      @extend .text-uppercase;
+      font-weight: bold;
+    }
+    svg {
+      margin-top: -0.2rem;
+    }
+  }
+
+  .subheading {
+    margin-top: 2.5rem;
+    border-top: 2px solid $primary-green;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    line-height: 1.5rem;
+  }
+
+  .question {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    .half {
+      margin-top: 1rem;
+      margin-bottom: 4rem;
+      > div {
+        &:not(:last-child) {
+          padding: 1rem;
+          border-right: 1px solid $background-gray-dark;
+        }
+      }
+      .violett {
+        float: right;
+        padding-right: 2rem;
+      }
+    }
+  }
+
+  .tips {
+    h4,
+    h5 {
+      margin-bottom: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .violett {
+    color: $primary-violett;
+  }
+
+  .notes {
+    .keyvisual {
+      // min-height: 50vh;
+      background-color: $background-gray;
+    }
+
+    .half {
+      margin-bottom: 0;
+    }
+  }
+
+  .outline-quote {
+    @extend .gradient-background;
+    /*background-color:  $background-gray-dark;
+      padding:1rem;*/
+    padding: 0;
+
+    .blockquote {
+      padding: 1rem;
+      margin: 3px;
+      p {
+        font-weight: 400;
+      }
+    }
+  }
+
+  .result {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+#method .images {
+  margin-top: 0;
+  margin-bottom: 0;
+  img {
+    margin-left: 0; /* Same padding as col-2 on other side */
+  }
+}
+
+.images {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  img {
+    width: 80%; /* Same padding as col-2 on other side */
+    margin-left: 10%;
+  }
+  .img-desc {
+    color: gray;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+}
+
+.footer-col {
+  footer {
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    height: 60px;
+    clear: both;
+    background-color: $background-gray;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 1920px;
+    align-items: center;
+    margin-top: 4rem;
+
+    span {
+      align-self: center;
+      text-align: center;
+    }
+  }
+}
+
+.codeExample {
+  width: 100%;
+  border-radius: 0;
+  border-width: 0;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+  line-height: inherit;
+  color: inherit;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-variant-ligatures: contextual;
+  font-variant-ligatures: contextual;
+  display: inline-block;
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 1px;
+  font-family: monospace;
+  color: black;
+  direction: ltr;
+  font-size: 0.9rem;
+  white-space: pre;
+  word-break: break-all;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

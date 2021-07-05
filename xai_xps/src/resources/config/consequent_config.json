@@ -1,0 +1,26 @@
+{
+    "pdp_ice": {
+      "label": "PDP + ICE",
+      "visualization": 1
+    },
+    "ale": {
+      "label": "ALE",
+      "visualization": 1
+    },
+    "pfi": {
+      "label": "PFI",
+      "visualization": 0
+    },
+    "shap": {
+      "label": "SHAP",
+      "visualization": 0
+    },
+    "anchors": {
+      "label": "Anchors",
+      "visualization": 0
+    },
+    "cfproto": {
+      "label": "CFProto",
+      "visualization": 0
+    }
+  }

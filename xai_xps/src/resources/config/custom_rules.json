@@ -1,0 +1,365 @@
+{
+  "use_ratings_with_prereq": {
+    "corr_foi": [
+       {
+        "prereq_name": "foi_available",
+        "prereq_val": "True"
+      }
+    ],
+        "discr_foi": [
+       {
+        "prereq_name": "foi_available",
+        "prereq_val": "True"
+      }
+    ],
+    "dur_call": [
+      {
+        "prereq_name": "perf_pref",
+        "prereq_val": "H",
+        "weights": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "prereq_name": "perf_pref",
+        "prereq_val": "M",
+        "weights": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "num_feat": [
+      {
+        "prereq_name": "perf_pref",
+        "prereq_val": "H",
+        "weights": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "prereq_name": "perf_pref",
+        "prereq_val": "M",
+        "weights": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      }
+    ]
+  },
+  "custom_rules": [
+    {
+      "antecedent": [
+        {
+          "name": "corr",
+          "value": "H"
+        },
+        {
+          "name": "discr",
+          "value": "H"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "VH",
+          "weight": 0.7
+        }
+      ]
+    },
+    {
+      "antecedent": [
+         {
+          "name": "foi_available",
+          "value": "True"
+        },
+        {
+          "name": "corr_foi",
+          "value": "H"
+        },
+        {
+          "name": "discr_foi",
+          "value": "H"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "VH"
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "corr",
+          "value": "H"
+        },
+        {
+          "name": "discr",
+          "value": "M"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "H",
+          "weight": 0.7
+        }
+      ]
+    },
+    {
+      "antecedent": [
+                 {
+          "name": "foi_available",
+          "value": "True"
+        },
+        {
+          "name": "corr_foi",
+          "value": "H"
+        },
+        {
+          "name": "discr_foi",
+          "value": "M"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "H"
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "corr",
+          "value": "M"
+        },
+        {
+          "name": "discr",
+          "value": "H"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "H",
+          "weight": 0.7
+        }
+      ]
+    },
+    {
+      "antecedent": [
+                 {
+          "name": "foi_available",
+          "value": "True"
+        },
+        {
+          "name": "corr_foi",
+          "value": "M"
+        },
+        {
+          "name": "discr_foi",
+          "value": "M"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "L",
+          "weight": 0.6
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "corr",
+          "value": "L"
+        },
+        {
+          "name": "discr",
+          "value": "L"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "VL",
+          "weight": 0.7
+        }
+      ]
+    },
+    {
+      "antecedent": [
+                 {
+          "name": "foi_available",
+          "value": "True"
+        },
+        {
+          "name": "corr_foi",
+          "value": "L"
+        },
+        {
+          "name": "discr_foi",
+          "value": "L"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "VL"
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "corr",
+          "value": "L"
+        },
+        {
+          "name": "discr",
+          "value": "H"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "L",
+          "weight": 0.5
+        }
+      ]
+    },
+    {
+      "antecedent": [
+                 {
+          "name": "foi_available",
+          "value": "True"
+        },
+        {
+          "name": "corr_foi",
+          "value": "L"
+        },
+        {
+          "name": "discr_foi",
+          "value": "H"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "L",
+          "weight": 0.6
+        }
+      ]
+    },
+     {
+      "antecedent": [
+                 {
+          "name": "foi_available",
+          "value": "True"
+        },
+        {
+          "name": "corr_foi",
+         "value": "L"
+        },
+        {
+          "name": "discr_foi",
+          "value": "L"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "ale",
+          "value": "L",
+          "weight": 0.6
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "ordinal_feat",
+          "value": "True"
+        },
+        {
+          "name": "discr",
+          "value": "L"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "cfproto",
+          "value": "VL",
+          "weight": 0.8
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "ordinal_feat",
+          "value": "True"
+        },
+        {
+          "name": "discr",
+          "value": "M"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "cfproto",
+          "value": "L",
+          "weight": 0.6
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "ordinal_feat",
+          "value": "True"
+        },
+        {
+          "name": "corr",
+          "value": "VL"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "cfproto",
+          "value": "VL",
+          "weight": 0.6
+        }
+      ]
+    },
+    {
+      "antecedent": [
+        {
+          "name": "ordinal_feat",
+          "value": "True"
+        },
+        {
+          "name": "corr",
+          "value": "L"
+        }
+      ],
+      "consequent": [
+        {
+          "name": "cfproto",
+          "value": "L",
+          "weight": 0.6
+        }
+      ]
+    }
+  ]
+}
+

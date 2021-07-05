@@ -1,0 +1,22 @@
+@import "./../variables";
+
+.classificationTags {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  align-items: stretch;
+  display: flex;
+
+  .col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    .tag {
+      background: $primary-green;
+      height: 100%;
+      padding: 2rem;
+      width: 100%;
+    }
+  }
+}

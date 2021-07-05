@@ -1,0 +1,26 @@
+criterion,rating,PDP + ICE,ALE,PFI,SHAP,Anchors,CFProto
+Correlation,L,VH,L,-,-,-,-
+Correlation,M,-,-,L,L,L%0.6,L%0.6
+Correlation,H,L,VH,VL,VL,L,L
+Correlation FOI,L,VH,L,-,-,-,-
+Correlation FOI,M,L,H,-,-,-,-
+Correlation FOI,H,VL,VH,L,L,L%0.6,L%0.6
+Discretizability,L,-,L%0.6,-,-,VL,-
+Discretizability,M,-,-,-,-,L,-
+Discretizability,H,-,-,-,-,-,-
+Discretizability FOI,L,-,L,-,-,VL,-
+Discretizability FOI,M,-,-,-,-,L,-
+Discretizability FOI,H,-,-,-,-,-,-
+Preparation Time Preference,L,-,-,L,L,VL,VL
+Preparation Time Preference,M,-,-,-,-,L,L
+Preparation Time Preference,H,-,-,-,-,-,-
+Number of Features,L,-,-,-,-,-,-
+Number of Features,M,-,-,-,-,L,-
+Number of Features,H,-,-,L,VL,VL,L
+Duration of Model Call,L,-,-,-,-,-,-
+Duration of Model Call,M,-,-,-,-,L,VL
+Duration of Model Call,H,-,-,L,L,VL,VL
+Local Scope,False,-,-,-,-,-,-
+Local Scope,True,VH,-,-,VH,VH,VH
+Global Scope,False,-,-,-,-,-,-
+Global Scope,True,VH,VH,VH,VH,-,-

@@ -1,0 +1,57 @@
+{
+  "id":"anchors",
+  "name":"Anchors",
+  "abbr":"anchors",
+  "classification":[
+     "scopeLocal",
+     "modelSimplification",
+     "perturbation"
+  ],
+  "question":"Nach welchen Regeln lässt sich die Vorhersage einer Instanz erklären? Auf wie viele Instanzen trifft die Regel zu (Coverage) und wie gut beschreibt sie die Vorhersage der Instanz (Precision)?",
+  "questionExample":"Warum wurde ich als kreditunwürdig eingestuft? Wie wahrscheinlich ist eine Einstufung als 'nicht kreditwürdig' aufgrund meiner persönlichen Merkmale und wie viele andere Personen weisen solche ähnlichen Merkmale auf?",
+  "noQuestion":"",
+  "function":"Anchors erklärt die Vorhersage eines Klassifikationsmodells lokal durch Extraktion von Wenn-Dann-Entscheidungsregeln, sogenannten Anchors, unter der Angabe der prozentualen Anwendbarkeit dieser auf andere Dateninstanzen und der Vorhersagegenauigkeit. <a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>[1]</a> <br/> Für eine zu erklärende Dateninstanz <i>x</i> werden durch Perturbationen neue Instanzen in ihrer Nachbarschaft generiert, die mit einer festgelegten Wahrscheinlichkeit (z.B. 95%) die gleiche Vorhersage erhalten wie <i>x</i>. Die Suche nach einem geeigneten Anchor Kandidaten findet mittels der Bottom-Up Strategie statt.  Dabei wird eine leere Regel, die auf jede Dateninstanz zutrifft, iterativ um weitere Feature-Prädikate erweitert. Für jeden Kandidaten muss die Vorhersage durch das Modell berechnet werden. Da die Anzahl der potenziellen Anchors exponentiell zum Eingaberaum der Features ist, werden zur Reduktion der Berechnungskomplexität die geeignetsten Kandidaten von einem Multi-Armed-Bandit Algorithmus (<a href='https://arxiv.org/abs/1102.2490'>KL-LUCB</a>) ausgewählt und nur ihre Vorhersagen berechnet. <a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>[1]</a> Mit Multi-Armed-Bandit Algorithmen können verschiedene Strategien durch sequentielle Auswahl effizient erkundet und ausgenutzt werden. Im Fall von Anchors wird ein Regelkandidat hinsichtlich der festgelegten Wahrscheinlichkeit evaluiert. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a>",
+  "result":"Das Ergebnis ist eine Erklärung mit:<br/> <ul><li>Einer Liste mit Features, die im Anchor enthalten sind</li><li>Der Genauigkeit, die angibt, wie viele Instanzen, auf die der Anchor zugrifft, dieselbe Vorhersage erhalten wie die Originalinstanz (Schwellwert für einen gültigen Anchor)</li><li>Der Abdeckung, d.h. der Anteil der angegebenen Dateninstanzen, auf die der Anker zutrifft.</li></ul>",
+  "resultImg":"/images/anchors/adult_income.png",
+  "references":{
+     "1":"<a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>Riberio, Marco Tulio; Singh, Sameer; Guestrin, Carlos (2018): Anchors: High Precision Model-Agnostic Explanations. In: Thirty-Second AAAI Conference on Artificial Intelligence.</a>",
+     "2":"<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>"
+  },
+  "implementation":{
+     "name":"Anchors von Alibi",
+     "recommendation":"Es wird die Implementierung von <i>Alibi</i> empfohlen. Diese zeichnet sich im Gegensatz zur Implementierung der Veröffentlichung von <a href='/anchors#ref1'>Riberio et al.</a>, welche <a href=‘https://github.com/marcotcr/anchor‘>[hier]</a> zu finden ist, durch eine bessere Dokumentation, aussagekräftigere Kommentare im Code und durch eine höhere Konfigurierbarkeit aus.",
+       "doc_link":"https://docs.seldon.io/projects/alibi/en/stable/methods/Anchors.html",
+     "code_link":"https://github.com/SeldonIO/alibi",
+     "result":"Das Ergebnis ist eine Erklärung mit:<br/> <ul><li>Einer Liste mit Features, die im Anchor enthalten sind</li><li>Der Genauigkeit, die angibt, wie viele Instanzen, auf die der Anchor zugrifft, dieselbe Vorhersage erhalten wie die Originalinstanz (Schwellwert für einen gültigen Anchor)</li><li>Der Abdeckung, d.h. der Anteil der angegebenen Dateninstanzen, auf die der Anker zutrifft.</li></ul>",
+     "hintsUsage":[
+        "Standardmäßig wird der kürzeste Anchor mit der höchsten Precision zurückgegeben. <a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>[1]</a>",
+        "Manche Anchors sind sehr spezifisch, was bedeutet, dass die für die Vorhersage erforderlichen Bedingungen sehr spezifisch und nicht verallgemeinerbar sind.  <a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>[1]</a>",
+        "Eventuell könnten zwei sich wiedersprechende Anchors geliefert werden. Dieser sehr unwahrscheinliche Fall erfordert weitere Begutachtung der Instanz und eine Erhöhung des Precision Schwellwerts. <a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>[1]</a>",
+        "Eine Diskretisierung numerischer Features ist notwendig, da die resultierenden Regeln andernfalls sehr spezifisch wären und eine geringe Abdeckung des Feature-Eingaberaums aufwiesen. Sind die Features allerdings schlecht diskretisierbar, können die Entschiedungsgrenzen der Anchors verschwimmen. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a>",
+        "Für die Berechnung eines Anchors wird das ML Modell bzw. seine Vorhersagefunktion sehr häufig aufgerufen. Die genaue Anzahl hängt von der zu erklärenden Instanz ab. Bei langen Zugriffszeiten ist die Performance der Methode daher eher schlecht."
+     ],
+     "hintsImpl":{
+        "predictor":"Die dem Anchor Explainer übergebene Vorhersagefunktion muss die Datentransformationsschritte (Kodierung und Skalierung) ausführen. In den Explainer gegebene, zu erklärende Dateninstanzen müssen daher nicht weiter vorbereitet und die Feature-Dimensionen der Erklärung nicht angepasst werden. Eine übergebene Vorhersagefunktion sähe beispielsweise folgendermaßen aus:<span class='codeExample'>def pred_fn(X):\n&nbsp;&nbsp;&nbsp;&nbsp;return clf.predict(preprocessor.transform(X))</span>",
+        "category_map":"Dictionary aller kategorischer Features benötigt, wobei die Schlüssel die Spaltennummer und die Werte eine Liste aller Kategorien des Features sind.",
+        "beam_size (explain())":"Anzahl der potentiellen Anchors, die erweitert werden. Der Default-Wert ist '1' und somit 'greedy', da nur eine einzige Regel behalten und inkrementell erweitert wird. Eine suboptimale Anchor-Wahl ist somit irreversibel. Eine Erhöhung dieses Parameters verbessert die Wahrscheinlichkeit des Erhalts eines guten Anchors, allerdings erhöht er auch die Anzahl der Modellaufrufe enorm."
+     },
+     "references":{
+        "1":"<a href='https://www.aaai.org/ocs/index.php/AAAI/AAAI18/paper/view/16982/15850'>Riberio, Marco Tulio; Singh, Sameer; Guestrin, Carlos (2018): Anchors: High Precision Model-Agnostic Explanations. In: Thirty-Second AAAI Conference on Artificial Intelligence.</a>",
+        "2":"<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>"
+     },
+     "prereqs":{
+        "model":false,
+        "data":{
+           "info":"Unvorbereitete Daten",
+           "categorical":"Nicht kodiert",
+           "numerical":"Nicht skaliert",
+           "colNames":"Benötigt"
+        },
+        "trueLabel":false,
+        "additional":[
+           "Vorhersagefunktion so manipulieren, dass sie die Datenvorbereitungsschritte (Kodierung und Skalierung) ausführt.",
+           "Dictionary aller kategorischer Features benötigt, wobei die Schlüssel die Spaltennummer und die Werte eine Liste aller Kategorien des Features sind."
+        ]
+     }
+  }
+}

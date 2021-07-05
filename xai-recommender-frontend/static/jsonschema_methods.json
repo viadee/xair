@@ -1,0 +1,160 @@
+/* Schema for method JSON validation, e.g. via https://www.jsonschemavalidator.net/ */
+
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "abbr": {
+            "type": "string"
+        },
+        "classification": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "question": {
+            "type": "string"
+        },
+        "questionExample": {
+            "type": "string"
+        },
+        "noQuestion": {
+            "type": "string"
+        },
+        "function": {
+            "type": "string"
+        },
+        "result": {
+            "type": "string"
+        },
+        "resultImg": {
+            "type": "string"
+        },
+        "references": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "implementation": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "recommendation": {
+                    "type": "string"
+                },
+                "doc_link": {
+                    "type": "string"
+                },
+                "code_link": {
+                    "type": "string"
+                },
+                "result": {
+                    "type": "string"
+                },
+                "hintsUsage": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "hintsImpl": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "references": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "prereqs": {
+                    "type": "object",
+                    "properties": {
+                        "model": {
+                            "type": "boolean"
+                        },
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "info": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "categorical": {
+                                    "type": "string"
+                                },
+                                "numerical": {
+                                    "type": "string"
+                                },
+                                "colNames": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "categorical",
+                                "numerical",
+                                "colNames"
+                            ]
+                        },
+                        "trueLabel": {
+                            "type": "boolean"
+                        },
+                        "additional": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": [
+                        "model",
+                        "data",
+                        "trueLabel",
+                        "additional"
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "recommendation",
+                "doc_link",
+                "code_link",
+                "result",
+                "hintsUsage",
+                "hintsImpl",
+                "references",
+                "prereqs"
+            ]
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "abbr",
+        "classification",
+        "question",
+        "questionExample",
+        "noQuestion",
+        "function",
+        "result",
+        "resultImg",
+        "references",
+        "implementation"
+    ]
+}

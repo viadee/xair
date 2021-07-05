@@ -1,0 +1,104 @@
+@font-face {
+  font-family: "Oswald-Regular";
+  src: url("/static/fonts/Oswald/Oswald-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-Bold";
+  src: url("/static/fonts/Oswald/Oswald-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-Medium";
+  src: url("/static/fonts/Oswald/Oswald-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-Light";
+  src: url("/static/fonts/Oswald/Oswald-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-ExtraLight";
+  src: url("/static/fonts/Oswald/Oswald-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-SemiBold";
+  src: url("/static/fonts/Oswald/Oswald-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/static/fonts/Open_Sans/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans-Italic";
+  src: url("/static/fonts/Open_Sans/OpenSans-Italic.ttf") format("truetype");
+  font-style: italic, oblique;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Open Sans-SemiBold";
+  src: url("/static/fonts/Open_Sans/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans-SemiBoldItalic";
+  src: url("/static/fonts/Open_Sans/OpenSans-SemiBoldItalic.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: italic, oblique;
+}
+
+@font-face {
+  font-family: "Open Sans-Bold";
+  src: url("/static/fonts/Open_Sans/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans-BoldItalic";
+  src: url("/static/fonts/Open_Sans/OpenSans-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic, oblique;
+}
+
+@font-face {
+  font-family: "Open Sans-Light";
+  src: url("/static/fonts/Open_Sans/OpenSans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans-LightItalic";
+  src: url("/static/fonts/Open_Sans/OpenSans-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic, oblique;
+}
+
+@font-face {
+  font-family: "Open Sans-ExtraBold";
+  src: url("/static/fonts/Open_Sans/OpenSans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans-ExtraBoldItalic";
+  src: url("/static/fonts/Open_Sans/OpenSans-ExtraBoldItalic.ttf")
+    format("truetype");
+  font-weight: 800;
+  font-style: italic, oblique;
+}

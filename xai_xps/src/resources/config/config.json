@@ -1,0 +1,192 @@
+{
+  "ratings": [
+    [
+      "VL",
+      "L",
+      "M",
+      "H",
+      "VH"
+    ],
+    [
+      "L",
+      "M",
+      "H"
+    ],
+    [
+      "False",
+      "True"
+    ]
+  ],
+  "resource_files": {
+    "rating_bool": "./resources/config/rating_bool.csv",
+    "rating_fuzzy": "./resources/config/rating_fuzzy.csv",
+    "rules": "./resources/config/rules.npy",
+    "custom_rules": "./resources/config/custom_rules.json",
+    "consequent_config": "./resources/config/consequent_config.json",
+    "frontend_input_config": "./resources/config/frontend_input_config.json",
+    "antecedents": "./resources/config/antecedents.npy",
+    "consequents": "./resources/config/consequents.npy",
+    "log_file": "./../logs.log",
+    "cur_rules_file": "./resources/info/cur_rules.txt"
+  },
+  "criteria": {
+    "weight_m_rating": "L%0.6",
+    "weight_reduced_general": 0.7
+  },
+  "fuzzy": {
+    "defuzzify_method": "centroid",
+    "universes": {
+      "u_10": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "u_10_neg": [
+        -10,
+        -9,
+        -8,
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "u_bool": [
+        0,
+        1
+      ]
+    },
+    "mem_funcs": {
+      "bool": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "trap": {
+        "u10_5": [
+          [
+            0,
+            0,
+            2,
+            3
+          ],
+          [
+            0,
+            0,
+            4,
+            5
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            6,
+            7,
+            10,
+            10
+          ],
+          [
+            8,
+            9,
+            10,
+            10
+          ]
+        ]
+      },
+      "tri": {
+        "u10_3": [
+          [
+            0,
+            0,
+            5
+          ],
+          [
+            0,
+            5,
+            10
+          ],
+          [
+            5,
+            10,
+            10
+          ]
+        ],
+        "u10_5": [
+          [
+            0,
+            0,
+            3
+          ],
+          [
+            0,
+            3,
+            5
+          ],
+          [
+            3,
+            5,
+            7
+          ],
+          [
+            5,
+            7,
+            10
+          ],
+          [
+            7,
+            10,
+            10
+          ]
+        ],
+        "u100_3": [
+          [
+            0,
+            0,
+            50
+          ],
+          [
+            0,
+            50,
+            100
+          ],
+          [
+            50,
+            100,
+            100
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+    "id": "pdp_ice",
+    "name": "Partial Dependence Plots (PDP) & Individual Conditional Expectation (ICE)",
+    "abbr": "PDP + ICE",
+    "classification": [
+      "scopeBoth",
+      "featureRelevance",
+      "perturbation",
+      "visual"
+    ],
+    "question": "PDP: Wie ist der durchschnittliche Zusammenhang zwischen dem betrachteten (von den anderen unabhängigen) Feature und der Vorhersage? <br> ICE: Wie ist der dateninstanzspezifische Zusammenhang zwischen dem betrachteten (von den anderen unabhängigen) Feature und der Vorhersage?",
+    "questionExample": "PDP: Welchen durchschnittlichen Einfluss hat das Alter auf die Bewilligung eines Kredits durch die Bank? </br>ICE: Welchen Einfluss hat <b>mein</b> Alter auf die Bewilligung <b>meines</b> Kredits durch die Bank?",
+    "noQuestion": "<ul><li>Visualisierung der Interaktion und Auswirkung von zwei Features gibt nur Auskunft über die vom ML Modell gelernten Korrelationen der Features, allerdings nicht zwangsläufig über die Kausalität.  Es könnte immer unbeobachtete Ursachen geben, die für die zwei assoziierten Variablen verantwortlich sind. Mithilfe der Interpretation der Methodenergebnisse können allerdings Hypothesen generiert werden, anhand derer die Kausalität durch Experimente oder ähnliche Ansätze ermittelt werden kann. <a href='https://arxiv.org/abs/1606.03490'>[1]</a></li><li>Korreliert das dargestellte Feature mit anderen Eingabefeatures  können einige Punkte in den Linien ungültig und der Plot wenig aussagend sein. Für die Darstellung eines korrelierenden Features wird ALE empfohlen.</li></ul>",
+    "function": "Um den marginalen Effekt eines zu betrachtenden Features zu ermitteln, werden Vorhersagen für Dateninstanzen gemacht, bei denen dieser Feature-Wert verändert wird, während die aller anderen unverändert bleiben. Das gibt Aufschluss darüber, wiesich die Vorhersage ändert, wenn sich das betrachtete Feature ändert. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a> ICE stellt die Veränderung der Vorhersage durch das Feature für jede Dateninstanz als eine Linie dar, wohingegendas Ergebnis eines PDP Plots der Durchschnitt aller ICE Plots ist <a href='https://arxiv.org/pdf/1309.6392.pdf'>[3]</a>. Dabei ist allerdings eine Unabhängigkeit der Eingabe-Features vorausgesetzt. Sollten sie untereinander korrelieren, kann es zur Generierung seltener, unrealistischer oder sogar unmöglicher Dateninstanzen kommen. Ein Beispiel hierfür anhand der Dateninstanz einer Person ist die Veränderung des Features „Gewicht“ auf „48 kg“, wenn das Feature „Körpergröße“ den Wert „200 cm“ hat. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a> Solche neu erzeugten Dateninstanzen sind extrapoliert, d.h. sie liegen außerhalb der Trainingsdatenverteilung, und sind durch ihre unüblichen Feature-Kombinationen sehr unwahrscheinlich. Beide Verfahren berücksichtigen diese jedoch bei der Berechnung des Ergebnisses, wodurch es verfälschend beeinflusst werden kann <a href='https://arxiv.org/pdf/1309.6392.pdf'>[3]</a>. <br> Das Ergebnis eines PDP Plots kann daher als Durchschnitt aller ICE Plots gesehen werden und ist außerdem auch für die Darstellung kombinierter Effekt zweier Features, d.h. ihres Gesamteffekt und ihren Interaktionseffekten mit anderen Features, geeignet. <br/>Diese zwei Verfahren werden in der Praxis häufig zusammen angewendet, da ICE Ungenauigkeiten von PDP durch starke Korrelationen der Features aufdecken kann und bei einer ausschließlichen Verwendung von PDP heterogene Effekte der Daten unerkannt bleiben. Durch Visualisierung des Durchschnitts haben sich gleich viele positive und negative Auswirkungen eines Features gegenseitig auf, weshalb ICE Plots für einzelne Instanzen genauer betrachtet werden sollten. <a href='https://christophm.github.io/interpretable-ml-book/'>[2]</a>",
+     "result": "Die Methoden zeigen auf, ob die Beziehung zwischen Modellvorhersage und dem zu betrachtenden Feature linear, monoton oder komplexer ist.<br/> Der PDP Graph für zwei Features zeigt dabei den Gesamteffekt der Features an, welcher die mittlere Vorhersage, die beiden Haupteffekte und den Effekt zweiter Ordnung (die Feature-Interaktion) enthält.<br/>ICE erlaubt lediglich die Visualisierung eines Features; mit PDP lässt sich die Auswirkung und Interaktion von zwei Features visualisieren.",
+    "resultImg": "/images/pdp_ice/titanic.png",
+    "references": {
+      "1": "<a href='https://arxiv.org/abs/1606.03490'>Lipton, Zachary C (2018): The Mythos of Model Interpretability. In: Queue (16)</a>",
+      "2": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>",
+    "3": "<a href='https://arxiv.org/pdf/1309.6392.pdf'>Goldstein, A., Kapelner, A., Bleich, J. & Pitkin, E. (2014), ‘Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation’.</a>"
+    },
+    "implementation": {
+      "name": "PDPBox",
+      "recommendation": "Die vorhandenen Python Implementierungen unterstützen alle jeweils beide Visualisierungsverfahren und zeigen PDP und ICE oft in demselben Plot an. Für das Empfehlungssystem wurde die Implementierung <i>PDPBox</i> ausgewählt, da sie im Gegensatz zu einer anderen in Betracht gezogenen Alternative die Visualisierung kategorieller Features erlaubt.       <i>PDPBox</i> überzeugt durch eine gute Community, eine ansprechende grafische Visualisierung und das Bereitstellen verschiedene Variationen der PDP Interaktions-Plots. Zudem bietet es diverse zusätzliche Informationsgrafiken zur Analyse der Auswirkung eines Features auf die Vorhersage. Unter anderem kann die durchschnittliche Vorhersage für einen bzw. zwei Feature-Werte und die Verteilung der tatsächlichen Vorhersagen für diese Feature-Werte dargestellt werden, wobei die Werte bei numerischen Features Bereiche (Perzentile) sind.",
+      "doc_link": "https://pdpbox.readthedocs.io/en/latest/",
+      "code_link": "https://github.com/SauceCat/PDPbox",
+      "result": "<ul>  <li>PDP für ein Feature, mit Darstellung einzelner ICE Kurven </li><li>PDP Interaction für zwei Features (Contour Plot oder Grid Plot), mit Darstellung einzelner ICE Kurven </li><li>Information Plots<ul> <li>Durchschnittliche Vorhersage für Featurewerte (numerische werden in Perzentilen zusammengefasst)</li><li>Verteilung der tatsächlichen Vorhersagen für Featurewerte (numerische werden in Perzentilen zusammengefasst)</li></ul></li></ul>",
+      "hintsUsage": [
+        "Ein zusätzliches Aufzeigen der Feature Verteilungen (in Form eines Histogramms oder der Anzeige der Datenpunkte auf der y-Achse) wird empfohlen, da andernfalls extrapolierte Regionen mit fast keinen Datenpunkten überinterpretiert und zu viel Wichtigkeit beigemessen werden könnte. Bei PDPBox wird die Verteilung standardmäßig angezeigt.",
+        "Bei der ausschließlichen Verwendung von PDP bleiben heterogene Effekte der Daten unerkannt: Gleich viele positive und negative Auswirkungen eines Features auf das Ergebnis könnten sich gegenseitig aufheben, weshalb der ICE Plot für einzelne Instanzen genauer betrachtet werden sollte. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+        "Für diesen XAI Methoden Vorschlag wurde hauptsächlich die Korrelationen der angegebenen Features of Interest betrachtet. Falls andere ebenfalls visualisiert werden sollten sind ALE Plots für die Darstellung korrelierender Features in Betracht zu ziehen bzw. zu bevorzugen, da die Eingabefeatures meistens zu einem gewissen Grad mit anderen interagieren.",
+        "2D PDP Plots sind für die Darstellung kombinierter Effekte zweier Features, d.h. ihrem Gesamteffekt und den Interaktionseffekten mit anderen Features, geeignet. Sie trennen nicht zwischen Haupt- und Interaktionseffekten, weshalb bei ausschließlichem Interesse an den gegenseitigen Interaktionen stattdessen 2D ALE Plots in Betracht gezogen werden sollten."
+      ],
+      "hintsImpl": {
+      },
+      "references": {
+        "1": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>"
+      },
+      "prereqs": {
+        "model": false,
+        "data": {
+          "categorical": "Kodiert",
+          "numerical": "Nicht skaliert",
+          "colNames": "Benötigt, wenn One-Hot-Encoding verwendet"
+        },
+        "trueLabel": false,
+        "additional": [
+        ]
+      }
+    }
+  }

@@ -1,0 +1,29 @@
+@import "./../_variables";
+
+body {
+  header {
+    h1 {
+      margin-bottom: -4px;
+      font-size: 4rem;
+    }
+    h6 {
+      margin-bottom: 0;
+      color: black;
+    }
+    .container-fluid .row {
+      padding: 0.6rem;
+      background-color: white;
+    }
+
+    #logo {
+      text-align: right;
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      svg {
+        fill: $primary-green;
+        height: 2rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+@import "./../variables";
+
+.heading {
+  background: white;
+  height: 10rem;
+  margin-top: 10px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    color: $primary-green;
+  }
+
+  .success-line {
+    background: linear-gradient(-90deg, $primary-yellow, $primary-green);
+    -webkit-clip-path: polygon(
+      0px 2px,
+      229px 2px,
+      317px 90px,
+      351px 56px,
+      100% 56px,
+      100% 54px,
+      350px 54px,
+      317px 87px,
+      230px 0px,
+      0px 0px
+    );
+    clip-path: polygon(
+      0px 2px,
+      229px 2px,
+      317px 90px,
+      351px 56px,
+      100% 56px,
+      100% 54px,
+      350px 54px,
+      317px 87px,
+      230px 0px,
+      0px 0px
+    );
+    position: absolute;
+    left: 0;
+    right: 0;
+    transform: scaleX(-1);
+    padding-top: 90px;
+  }
+  .success-line-filled.colored {
+    background: linear-gradient(-90deg, $primary-yellow, $primary-green);
+    clip-path: polygon(
+      0px 100%,
+      229px 100%,
+      317px 90px,
+      351px 100%,
+      100% 100%,
+      100% 54px,
+      350px 54px,
+      317px 87px,
+      230px 0px,
+      0px 0px
+    );
+    position: relative;
+  }
+  .success-line-filled.green {
+    background: $primary-green !important;
+  }
+
+  .success-line-filled.gray {
+    background: $background-gray !important;
+  }
+
+  .keyvisual {
+    // background: white;
+    height: 100%;
+    width: 100vw;
+    max-width: 1920px;
+    margin-left: -15px;
+    padding-left: 15px;
+
+    .item .row {
+      height: 90%;
+
+      h3 {
+        margin-bottom: 1rem;
+      }
+      #ranking {
+        display: inline-flex;
+        img {
+          height: 15rem;
+          width: auto;
+          z-index: -1;
+        }
+
+        .percentages {
+          margin-top: -2.5rem;
+          display: flex;
+          justify-items: center;
+          align-items: center;
+          flex-direction: row;
+          justify-content: space-around;
+          color: $primary-green;
+          font-weight: bolder;
+        }
+      }
+    }
+
+    .success-line.colored {
+      background: $background-gray-dark;
+    }
+    h1 {
+      margin-bottom: 0;
+      margin-top: -10px; // since whole box is moved lower
+    }
+    .item .col {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem;
+    }
+    .success-line-filled {
+      top: 70px;
+      width: 100vw;
+      max-width: 1920px;
+      margin-left: -15px;
+
+      left: 0;
+      right: 0;
+      //top: -90px;
+      transform: scaleX(-1);
+      padding-top: 90px;
+      background: linear-gradient(-90deg, $primary-yellow, $primary-green);
+      clip-path: polygon(
+        0px 100%,
+        229px 100%,
+        317px 90px,
+        351px 100%,
+        100% 100%,
+        100% 54px,
+        350px 54px,
+        317px 87px,
+        230px 0px,
+        0px 0px
+      );
+      position: relative;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .keyvisual .container {
+    top: 0;
+  }
+  .heading .success-line {
+    display: none;
+  }
+}

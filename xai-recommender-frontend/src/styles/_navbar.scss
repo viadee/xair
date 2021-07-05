@@ -1,0 +1,203 @@
+@import "variables";
+
+$default_font_size: 1.25rem;
+$default_padding: 8px;
+$border-width: 1px;
+$navbar-light-color: $text-gray;
+$navbar-light-disabled-color: $background-gray-dark;
+
+$navbar-padding-x: 0;
+$navbar-padding-y: 8px;
+$navbar-brand-padding-y: 0.3125rem;
+$navbar-brand-font-size: $default_font_size;
+$navbar-toggler-font-size: $default_font_size;
+$navbar-light-toggler-border-color: $background-gray-dark;
+
+$navbar-toggler-padding-y: $default_padding;
+$navbar-toggler-padding-x: $default_padding;
+$navbar-toggler-border-radius: $default_padding;
+
+$navbar-light-active-color: $primary-green;
+
+// Navbar
+//
+// Provide a static navbar from which we expand to create full-width, fixed, and
+// other navbar variations.
+
+.navbar {
+  width: 100vw;
+  max-width: 1920px;
+  line-height: 3.5rem;
+  // margin-top: 131px;
+  height: 4rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // allow us to do the line break for collapsing content
+  align-items: center;
+  justify-content: space-between; // space out brand from logo
+  padding: $navbar-padding-y $navbar-padding-x;
+
+  // Because flex properties aren't inherited, we need to redeclare these first
+  // few properities so that content nested within behave properly.
+  > .container,
+  > .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  svg {
+    display: none;
+  }
+
+  [aria-current] {
+    .nav-link {
+      font-weight: bold;
+      color: $primary-green !important;
+    }
+  }
+
+  .navbar-nav .nav-link {
+    text-align: center;
+  }
+
+  @include media-breakpoint-up(lg) {
+    svg {
+      display: block;
+      color: $primary-green;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  // if collapsed
+  #basic-navbar-nav {
+    z-index: 100;
+    background: white;
+    width: 100vw;
+    margin-left: -15px;
+    margin-top: 1rem;
+    border-bottom: 2px solid $primary-green;
+    border-top: 2px solid $primary-yellow;
+
+    a {
+      height: 3rem;
+      line-height: 3rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// Navbar nav
+//
+// Custom navbar navigation (doesn't require `.nav`, but does make use of `.nav-link`).
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .dropdown-menu {
+    position: static;
+    float: none;
+  }
+}
+
+// Navbar text
+//
+//
+
+.navbar-text {
+  display: inline-block;
+  //padding-top: $nav-link-padding-y;
+  //padding-bottom: $nav-link-padding-y;
+}
+
+// Responsive navbar
+//
+// Custom styles for responsive collapsing and toggling of navbar contents.
+// Powered by the collapse Bootstrap JavaScript plugin.
+
+// When collapsed, prevent the toggleable navbar contents from appearing in
+// the default flexbox row orienation. Requires the use of `flex-wrap: wrap`
+// on the `.navbar` parent.
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  // For always expanded or extra full navbars, ensure content aligns itself
+  // properly vertically. Can be easily overridden with flex utilities.
+  align-items: center;
+}
+
+// Button for toggling the navbar when in its collapsed state
+.navbar-toggler {
+  padding: $navbar-toggler-padding-y $navbar-toggler-padding-x;
+  font-size: $navbar-toggler-font-size;
+  line-height: 1;
+  background-color: transparent; // remove default button style
+  border: $border-width solid transparent; // remove default button style
+
+  // Opinionated: add "hand" cursor to non-disabled .navbar-toggler elements
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+// Keep as a separate element so folks can easily override it with another icon
+// or image file as needed.
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+}
+
+// Navbar themes
+//
+// Styles for switching between navbars with light or dark background.
+
+// Dark links against a light background
+.navbar-light {
+  .navbar-brand {
+    color: $navbar-light-active-color;
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-light-color;
+      line-height: 110%;
+
+      &.disabled {
+        color: $navbar-light-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $navbar-light-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: $navbar-light-color;
+    border-color: $navbar-light-toggler-border-color;
+  }
+
+  .navbar-text {
+    color: $navbar-light-color;
+    a {
+      color: $navbar-light-active-color;
+    }
+  }
+}

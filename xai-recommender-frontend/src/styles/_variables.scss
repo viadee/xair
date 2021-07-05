@@ -1,0 +1,30 @@
+@import "./fonts.scss";
+
+$color-primary: #20232a; /* TODO remove */
+
+$primary-green: #7ebca9;
+$primary-violett: #681885;
+$primary-red: #c5344e;
+$primary-yellow: #dfa93f;
+$background-gray: #f1f1f1;
+$background-gray-dark: #d8d8d8;
+
+$text-gray: #4a4a4a;
+
+$rating-vl: #570917;
+$rating-l: #850e24;
+$rating-m: $text-gray;
+$rating-h: #52c2a0;
+$rating-vh: rgb(67, 151, 126);
+
+// change the theme
+$theme-colors: (
+  "primary": $primary-green,
+  "secondary": $primary-yellow,
+  "danger": $primary-red,
+);
+
+$component-active-bg: $primary-green !default;
+$custom-checkbox-indicator-indeterminate-bg: $component-active-bg !default;
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";

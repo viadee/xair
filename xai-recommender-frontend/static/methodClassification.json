@@ -1,0 +1,45 @@
+{
+    "title": "Method classification data",
+    "content": 
+      {
+        "scopeLocal": {
+            "name": "Lokale Erklärung",
+            "description": "Bei einer lokalen Erklärung wird das Modell wird anhand der Vorhersage einer einzigen Dateninstanz erklärt."
+      },
+        "scopeGlobal": {
+            "name": "Globale Erklärung",
+            "description": "Globale Erklärungen zeigen, wie sich das gesamte System, unabhängig von einer spezifischen Eingabe, verhält."  
+      },
+        "scopeBoth": {
+            "name": "Lokale und globale Erklärung",
+            "description": "Bei einer lokalen Erklärung wird das Modell wird anhand der Vorhersage einer einzigen Dateninstanz erklärt; eine globale zeigt, wie sich das gesamte System, unabhängig von einer spezifischen Eingabe, verhält."
+      },
+      "modelSimplification":{
+        "name": "Modellvereinfachung",
+        "description": "Erklärt die Entscheidung des Modells durch Extraktion von Wenn-Dann-Regeln unter der Angabe der Genauigkeit und prozentualen Anwendbarkeit dieser."
+  },
+
+        "cf": {
+        "name": "Counterfactual Explanation",
+        "description": "Eine kontrafaktische Instanz (CF) ist eine minimal veränderte Dateninstanz, deren Vorhersage auf einen vordefinierten Wert geändert wurde. Sie sind für den Menschen leicht verständlich."       
+  },
+             "featureRelevance": {
+            "name": "Feature Relevanz",
+            "description": "Erklärt die Entscheidung des Modells anhand der Einflüsse einzelner Features."       
+      },
+          "visual": {
+              "name": "Visuelle Erklärung",
+              "description": "Das Methodenergebnis ist eine visuelle Erklärung, die helfen soll, das Modell zu verstehen. Visualisierungen sind intuitiv und  auch für Menschen ohne Expertenwissen gut geeignet und werden oft als zusätzliche XAI Technik in Betracht gezogen."
+      },
+
+        "perturbation": {
+            "name": "Perturbationsbasiert",
+            "description": "Erklärt die Vorhersage eines Modells durch Veränderung und Variation seiner Eingabedaten."
+
+      },
+
+        "permutation": {
+            "name": "Permutationsbasiert",
+            "description": "Für die Berechnung werden die Features der eingegebenen Dateninstanzen vertauscht bzw. ersetzt (permutiert)."
+      }}
+  }

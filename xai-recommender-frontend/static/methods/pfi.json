@@ -1,0 +1,52 @@
+{
+    "id": "pfi",
+    "name": "Permutation Feature Importance",
+    "abbr": "PFI",
+    "classification": [
+      "scopeGlobal",
+      "featureRelevance",
+      "permutation"
+    ],
+    "question": "Wie viel Einfluss hat das Feature auf die Korrektheit der Vorhersage, d.h. wie verändert sich der Vorhersagefehler des Modells nach Veränderung des Feature-Wertes?",
+    "questionExample": "Wie hoch ist der Einfluss des Alters auf die Korrektheit der Vorhersage der Kreditwürdigkeit?",
+     "noQuestion": "<ul><li>Die Methode erklärt die Wichtigkeit der Features für die Modellvorhersage, nicht unbedingt die der Systementscheidung. Manche Features werden beispielsweise nur durch die Ausprägung anderer, korrelierender Features aktiviert: Diese Features erhöhen dann zwar den vorhergesagten Wert, aber beeinflussen nicht unbedingt die Entscheidung.</li> <li>Die Methode gibt nur Aufschluss darüber, wie wichtig die Features für das eine getestete Modell ist.</li> <li>Da die Methode den Modellfehler für die Berechnung verwendet, ist sie evtl. nicht für jeden Use Case geeignet. Wenn man bspw. herausfinden will, welche Auswirkung das Feature auf die Varianz der Modellvorhersage hat, ist der Modellfehler uninteressant. </li></ul>",
+    "function": "Für die Berechnung der Wichtigkeit der Features wird  wird zunächst der Fehler des Modells durch eine beliebige Leistungsmetrik, bspw. die mittlere quadratische Abweichung (MSE, Mean Squared Error), gemessen. Anschließend wird jedes Feature permutiert, wobei sein Wert durch den einer anderen Dateninstanz ersetzt wird, was zu einem Bruch der Beziehung zwischen dem Feature und dem richtigen Vorhersageergebnis führt. Es wird der neue Fehler der permutierten Dateninstanz berechnet und die Wichtigkeit des Features durch die Differenz (oder durch das Verhältnis) des alten und neuen Fehlers bestimmt. <a href='https://christophm.github.io/interpretable-ml-book/'>[1]</a>",
+      "result": "Bar-Plots der Wichtigkeit der Features bzgl. der Korrektheit der Vorhersage",
+    "resultImg": "/images/pfi/titanic.png",
+    "references": {
+      "1": "<a href='https://christophm.github.io/interpretable-ml-book/'>Molnar, Christoph (2020): Interpretable Machine Learning</a>"
+    },
+    "implementation": {
+      "name": "ELI5",
+      "recommendation": "Die Implementierung von <i>ELI5</i> ist empfehlenswert, da sie eine Visualisierungsfunktion der Feature-Wichtigkeiten bietet. Allerdings ist bei der Verwendung von One-Hot Kodierung zur Ermittlung der gesamten Feature-Wichtigkeit eine manuelle Aggregation der einzelnen, kodierten Features notwendig. <br/> Wenn das Modell Teil einer Scikit-Learn Pipeline ist und somit die Preprocessing Schritte automatisch bei Eingabe einer Dateninstanz in das Modell ausgeführt werden, ist bei Verwendung von OHE zudem die Implementierung von <a href='https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html'>Scikit-learn</a> zu empfehlen, da sie automatisch die gebündelte Wichtigkeit der kodierten Featuers zurückgibt.",
+          "doc_link": "https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html",
+      "code_link": "https://github.com/TeamHG-Memex/eli5/tree/master/eli5",
+      "result": "Feature Importances (mittlere Abnahme des Modell Scores bzw. Zunahme des Fehlers), ihre Standardabweichung und die einzelnen Importances, sowie der Basis-Score aller (Score ohne Permutationen) aller Permutationsexperimente. ELI5 bietet zudem eine graphische Visualisierung der Feature Importances, wobei bei One-hot kodierten, kategorischen Features die Wichtigkeit jeder Kategorie dargestellt wird.",
+        "hintsUsage": [
+            "Durch zufälliges Wählen der Featurewerte können die Ergebnisse der Methode stark schwanken. Daher wird eine mehrfache Ausführung der Methode und die Berechnung des Durchschnitts ihrer Ergebnisse zur Stabilisierung der Messung empfohlen.",
+            "Es ist unklar, ob PFI auf den Trainings- oder dem Modell noch unbekannten Testdaten (Hold-Out-Set) angewendet werden sollte. Die Auswahl ist abhängig davon, welche der beiden Fragen beantwortet werden soll:<ul><li>Verwendung der Trainingsdaten: Wie sehr hängen die Modellvorhersagen von den einzelnen Features ab? </li><li>Verwendung der Testdaten: Wie sehr tragen die Features zur Modellperformance bei unbekannten Daten bei? Eine ausführlichere Diskussion, welche Daten verwendet werden sollten, ist <a href='https://christophm.github.io/interpretable-ml-book/feature-importance.html#feature-importance-data'>[hier]</a> zu finden. Merkmale, die in den Trainings- nicht aber in den unbekannten Daten wichtig sind, könnten zu einer Überanpassung des Modells an die Daten und somit zu einer schlechten Generalisierungsfähigkeit (Overfitting) führen.</li></ul>",
+            "Korreliert ein Feature mit einem anderen kann es sein, dass die ermittelte Wichtigkeit zu niedrig ist, da ihre eigentliche Importance zwischen beiden Features aufgeteilt wird.",
+            "Bei one hot kodierten, kategorischen Features wird die Wichtigkeit der einzelnen Kategorien für die Entscheidung berechnet. Zum Erhalt der gebündelten Wichtigkeit auf Feature-Ebene müssen die jeweiligen einzelnen addiert werden.",
+            "Die Methode verwendet die Differenz des Fehlers für die Berechnungder Feature Importance, nicht das Verhältnis."     ],
+      "hintsImpl": {
+          "scoring": "Als Performance Metrik zur Berechnung des Fehlers sollte die selbe Methode angegeben werden, die für die Evaluation der Performance des Modells verwendet wurde.",
+          "n_iter": "Gibt an, wie oft ein Feature permutiert werden soll. Zur Verbesserung der Performancekann die Anzahl reduziert werden, für den Erhalt genauerer Ergebnisse ist eine Erhöhung empfohlen.",
+          "cv": "<i>'prefit'</i> sollte angegeben werden, um die Feature Importances des bereits mit den ausgewählten Features trainierten Modells zu berechnen. Alle weiteren Modi der Berechnung trainieren das Modell neu, was mehr Berechnungsaufwand bedeutet und nicht die Feature-Wichtigkeiten des aktuellen Modells wiederspiegeln <a href='https://eli5.readthedocs.io/en/latest/autodocs/sklearn.html#module-eli5.sklearn.permutation_importance'>[1]</a>. Sie eignen sich gut zur initialen Featureauswahl (bspw. in Kombination mit Scikit-Learn's <a href='https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectFromModel.html?highlight=selectfrommodel'>SelectFromModel</a> oder <a href='https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html'>RFE</a>)."
+          },
+      "references": {
+        "1": "<a href='https://eli5.readthedocs.io/en/latest/autodocs/sklearn.html#module-eli5.sklearn.permutation_importance'> ELI5 (2021): Permutation Feature Importance Dokumentation</a>"    
+    },
+      "prereqs": {
+        "model": true,
+        "data": {
+          "info": "Daten als numpy Array",
+          "categorical": "Kodiert",
+          "numerical": "Skaliert",
+          "colNames": "Benötigt, wenn One-Hot kodiert (OHE)"
+        },
+        "trueLabel": true,
+        "additional": [
+        ]
+      }
+    }
+  }

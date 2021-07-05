@@ -1,0 +1,6 @@
+,PDP + ICE,ALE,PFI,SHAP,Anchors,CFProto
+model,0,1,1,0,0,0
+classif,0,0,0,0,1,1
+labels,0,0,1,0,0,0
+prep_ops,0,0,0,0,1,1
+predict_proba,0,0,0,0,0,1
