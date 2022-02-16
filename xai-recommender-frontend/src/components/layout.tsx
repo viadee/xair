@@ -43,7 +43,7 @@ const Layout = ({ children, pageInfo }) => (
               <Col className="footer-col">
                 <footer>
                   <span>
-                    © {new Date().getFullYear()}, Built by Verena Barth for{" "}
+                    © {new Date().getFullYear()}, {" "}
                     <a href="https://www.viadee.de/">
                       viadee Unternehmensberatung AG
                     </a>
